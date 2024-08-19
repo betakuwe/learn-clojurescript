@@ -4,15 +4,39 @@
             [reagent.dom :as rdom]))
 
 ;; define your app data so that it doesn't get over-written on reload
-(defonce app-state (atom {:text "Hello world!"}))
+(defonce app-state (atom {:title "WhichWeather"
+                          :postal-code ""
+                          :temperatures {:today {:label "Today" :value nil}
+                                         :tomorrow {:label "Tomorrow" :value nil}}}))
 
-(defn hello-world
-  []
-  [:div [:h1 {:class "app-title"} "Hello, World"]])
+(defn title []
+  [:h1 (:title @app-state)])
+
+(defn temperature [temp]
+  [:div {:class "temperature"}
+   [:div {:class "value"}]
+   [:h2 (:label temp)]])
+
+(defn postal-code []
+  [:div {:class "postal-code"}
+   [:h3 "Enter your postal code"]
+   [:input {:type "number"
+            :placeholder "Postal Code"
+            :value (:postal-code @app-state)
+            :on-change #(swap! app-state assoc :postal-code (-> % .-target .-value))}]
+   [:button "Go"]])
+
+(defn app []
+  [:div {:class "app"}
+   [title]
+   [:div {:class "temperatures"}
+    (for [temp (vals (:temperatures @app-state))]
+      [temperature temp])]
+   [postal-code]])
 
 (defn mount-app-element []
   (when-let [el (gdom/getElement "app")]
-    (rdom/render [hello-world] el)))
+    (rdom/render [app] el)))
 
 ;; conditionally start your application based on the presence of an "app"
 ;; element

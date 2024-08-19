@@ -1,7 +1,7 @@
 {:aliases {:build {:main-opts ["-m" "figwheel.main" "-b" "dev" "-r"]},
            :fig {:extra-deps {com.bhauman/figwheel-main {:mvn/version "0.2.17"},
                               com.bhauman/rebel-readline-cljs {:mvn/version
-                                                                 "0.1.4"},
+                                                               "0.1.4"},
                               org.slf4j/slf4j-nop {:mvn/version "1.7.30"}},
                  :extra-paths ["target" "test"]},
            :min {:main-opts ["-m" "figwheel.main" "-O" "advanced" "-bo" "dev"]},
@@ -11,5 +11,6 @@
         cljsjs/react-dom {:mvn/version "17.0.2-0"},
         org.clojure/clojure {:mvn/version "1.10.0"},
         org.clojure/clojurescript {:mvn/version "1.11.4"},
-        reagent/reagent {:mvn/version "1.1.1"}},
+        reagent/reagent {:mvn/version "1.1.1"}
+        cljs-ajax/cljs-ajax {:mvn/version "0.8.4"}},
  :paths ["src" "resources"]}
